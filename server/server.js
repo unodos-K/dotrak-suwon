@@ -6,10 +6,17 @@ require('dotenv').config();
 
 const app = express();
 const port = 3002;
-app.use(cors());
+const corsOptions = {
+    origin: 'https://dotrak.hair',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+  
 app.use(bodyParser.json());
 
-// MySQL 연결 설정
+// // MySQL 연결 설정
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -25,6 +32,11 @@ connection.connect((err) => {
     console.log('MySQL에 성공적으로 연결되었습니다.');
   }
 });
+
+app.get('/test', (req, res) => {
+    // console.log(res)
+    res.send('This is a test endpoint.');
+})
 
 app.post('/submitForm', (req, res) => {
     try {
@@ -48,21 +60,7 @@ app.post('/submitForm', (req, res) => {
     }
   });
   
-  
-
-// 루트 경로 응답
-app.get('/', (req, res) => {
-  res.send('안녕하세요, Node.js 서버입니다!');
-  console.log('모든 경로에 대한 응답입니다.')
-});
-
-app.get('/hello', (req, res) => {
-    res.send('안녕하세요, Node.js 서버입니다!');
-    console.log('hello.')
-  });
-  
-
 // 서버 시작
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
+  console.log(`서버가 ${port}포트에서 실행 중입니다.`);
 });

@@ -167,7 +167,7 @@ const FormContainer = ({isVisibleForm}) => {
 
         try {
             showAlert('이벤트 응모 완료', '이벤트에 응모되었습니다.', 'success');
-            const response = await axios.post('http://localhost:3002/submitForm', formData);
+            const response = await axios.post('https://dotrak.hair/submitForm', formData);
             console.log(response.data, formData); // 서버에서 보낸 응답 확인
         } catch (error) {
             console.error('데이터 전송 중 오류 발생:', error);
