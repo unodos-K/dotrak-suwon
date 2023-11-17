@@ -22,7 +22,6 @@ function AcademyPage () {
         <>
             <DayCountContainer/>
             <EalryBird/>
-            <Blank />
             <FormContainer isVisibleForm={isVisibleForm}/>
         </> 
     );

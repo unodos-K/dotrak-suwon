@@ -7,9 +7,6 @@ function SmpPages () {
     return ( 
         <>
             <DayCountContainer/>
-            <Blank />
-            <Blank />
-            <Blank />
             <FormContainer />
         </> 
     );
