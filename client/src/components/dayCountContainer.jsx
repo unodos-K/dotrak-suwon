@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const TimeContainer = styled.section`
   position: fixed;
+  height: 60px;
   top: 0;
-  left: 0;
-  width: 100%;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  color: var(--accent-color);
   padding: 10px;
   text-align: center;
 `;
@@ -44,7 +44,7 @@ function DayCountContainer() {
   }, []);
 
   return (
-    <TimeContainer>
+    <TimeContainer className='comp__wrapper'>
       <p className="countdown">{countdown}</p>
       <p>신청을 서두르세요!!</p>
     </TimeContainer>

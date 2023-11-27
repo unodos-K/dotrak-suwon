@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from 'styled-components';
 
-export const EalryBirdContainer = styled.div`
+export const EalryBirdContainer = styled.section`
     margin-top: 100px;
     display: flex;
     flex-direction: column;
@@ -38,33 +38,31 @@ export const EalryBirdBox = styled.div`
 // `
 
 function EalryBird () {
-    const [price, setPrice] = useState(4500000);
+    const price = 4500000;
     return (
         <EalryBirdContainer>
-            <h3>대한민국 1등 SMP 도트락 수원직영점 두피문신 아카데미</h3>
-            <h3>올클리어스쿨 12월, 1월 개강반 동시 모집! (선착순 3명)</h3>
             <EalryBirdBox>
-                <span>12월 개강반 11/22까지 등록시</span>
-                <span>1월 개강반 12/20까지 등록시</span>
+                <p>12월 개강반: 12월 중순 시작</p>
+                <p>1월 개강반: 1월 중순 시작</p>
                 <h2>얼리버드 혜택! 수강료 5% 할인</h2>
-                <span className="price">{price.toLocaleString()}원</span>
-                <span className="discount">{(price - price * 0.05).toLocaleString()}원</span>
+                <p className="price">{price.toLocaleString()}원</p>
+                <p className="discount">{(price - price * 0.05).toLocaleString()}원</p>
                 
             </EalryBirdBox>
             <EalryBirdBox>
-                <span>12월 개강반 11/12까지 등록시</span>
-                <span>1월 개강반 12/13까지 등록시</span>
+                <p>12월 개강반 11/12까지 등록시</p>
+                <p>1월 개강반 12/13까지 등록시</p>
                 <h2>슈퍼 얼리버드 혜택! 수강료 10% 할인</h2>
-                <span className="price">{price.toLocaleString()}</span>
-                <span className="discount">{(price - price * 0.05).toLocaleString()}원</span>
+                <p className="price">{price.toLocaleString()}</p>
+                <p className="discount">{(price - price * 0.05).toLocaleString()}원</p>
             </EalryBirdBox>
-            <h3>도트락 아카데미만의 장점</h3>
+            {/* <h3>도트락 아카데미만의 장점</h3>
             <ul>
                 <li>강사진이 뛰어나요</li>
                 <li>소규모 업체랑 비교 불가!</li>
                 <li>도트락만의 소수 정예 시스템</li>
                 <li>수강생별 밀착 관리</li>
-            </ul>
+            </ul> */}
         </EalryBirdContainer>
     );
 }

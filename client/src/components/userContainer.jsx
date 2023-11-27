@@ -1,85 +1,88 @@
 // UserContainer.js
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import dummyData from '../dummyData.json';
 
-const UserContainerWrapper = styled.section`
-    ul {
-        width: 100%;
-        list-style: none;
-    }
+const UserContainerWrapper = styled.div`
+  background-color: var(--accent-color);
 
-    ul > li {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 15px;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    .user-info {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-    
-    span {
-      text-align: center;
-    }
-
-    .user-info > span {
-        font-size: 1.2rem;
-        margin-right: 10px;
-        font-weight: bold;
-    }
+  p {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 12px 0;
+  }
 `;
 
-const UserContainer = () => {
-  const [todayUsers, setTodayUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 5;
-  // console.log(todayUsers)
+const ItemContainer = styled.ul`
 
-  useEffect(() => {
-    const today = new Date().getDate();
-    const filteredUsers = dummyData
-      .filter(data => data.day <= today)
-      .flatMap(data => data.userData);
+`
 
-    setTodayUsers(filteredUsers);
-  }, []); // 최초 렌더링 시에만 실행되도록 빈 배열 전달
+const LiContainer = styled.li`
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
 
-  const handleClick = () => {
-    if (currentPage < todayUsers.length / 5) {
-      setCurrentPage(prevPage => prevPage + 1);
-    } else {
-      alert('마지막 페이지입니다')
-    }
-  };
+const UserInfoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #000;
+  font-size: 1.2rem;
+`;
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = todayUsers.slice(indexOfFirstUser, indexOfLastUser);
+const UserName = styled.span`
+  margin-right: 10px;
+  font-weight: bold;
+`;
 
+const UserContact = styled.span`
+
+`;
+
+const ApplicationTime = styled.span`
+  text-align: center;
+  color: #444444;
+  font-size: 1.2rem;
+
+  @media screen and (max-width: 818px){
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 400px){
+    font-size: 0.8rem;
+  }
+`;
+
+const UserContainerBtn = styled.button`
+  font-size: 1.2rem;
+  margin-bottom: 60px;
+  color: #fff;
+
+  &:hover {
+    background-color: #e4ff00;
+  }
+`;
+
+const UserContainer = ({ handleAddUserList, currentUsers }) => {
   return (
-    <UserContainerWrapper id="user-container">
-      <h1>이벤트 응모 현황</h1>
-      <ul>
+    <UserContainerWrapper className='comp__wrapper'>
+      <ItemContainer className='comp__wrapper'>
         {currentUsers.map((userData, index) => (
-          <li key={index}>
-            <div className="user-info">
-              <span className="user-name">{userData.name}</span>
-              <span className="user-contact">{userData.contact}</span>
-            </div>
-            <span className="application-time">{`${userData.time}에 무료 상담 신청 완료!!`}</span>
-          </li>
+          <LiContainer key={index}>
+            <UserInfoContainer>
+              <UserName>{userData.name} |</UserName>
+              <UserContact>{userData.contact}</UserContact>
+            </UserInfoContainer>
+            <ApplicationTime>{`${userData.time}에 무료 시술 신청 완료!!`}</ApplicationTime>
+          </LiContainer>
         ))}
-      </ul>
-      <button onClick={handleClick}>더 보기</button>
+      </ItemContainer>
+      <UserContainerBtn onClick={handleAddUserList}>신청자 더 보기</UserContainerBtn>
     </UserContainerWrapper>
   );
 };

@@ -1,6 +1,6 @@
-import DayCountContainer from '../components/common/dayCountContainer';
-import FormContainer from '../components/common/formContainer';
-import Blank from '../components/common/blank';
+import DayCountContainer from '../components/dayCountContainer';
+import FormContainer from '../components/formContainer';
+import Blank from '../components/blank';
 
 // 첫 출시 30% 할인
 

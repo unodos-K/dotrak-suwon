@@ -3,64 +3,62 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  touch-action: manipulation; /* 터치를 사용한 스크롤, 핀치 줌만 허용하고 그 외 비표준 동작 (더블 탭으로 확대 등) 불허용 */
+  touch-action: pan-y; /* 터치를 사용한 스크롤, 핀치 줌만 허용하고 그 외 비표준 동작 (더블 탭으로 확대 등) 불허용 */
+  -webkit-user-drag: none;
+  user-select: none; /* 텍스트 선택 방지 */
 }
 
 :root {
-  --primary-color: #E4FF00;
-  --secondary-color: #297fb8;
-  --background-color: #192032;
-  --text-color: #333;
+  --primary-color: #E4Fe00;
+  --secondary-color: #002285;
+  --container-color: #e4f4ff;
+  --background-color: #333;
+  --text-color: #2b2b2b;
   --accent-color: #fff;
+  --button-color: #297fb8;
   --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
-html {
-  display: flex;
-  justify-content: center;
+  --floating-color: #21303e;
 }
 
 body {
-  width: 485px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  background-color: var(--shadow-color);
-  padding-top: 8px;
+  background-color: var(--background-color);
 }
-
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-h2,
-h1 {
-  text-align: center;
-}
-
-input, select {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 0.8rem;
-  touch-action: manipulation; /* 터치를 사용한 스크롤, 핀치 줌만 허용하고 그 외 비표준 동작 (더블 탭으로 확대 등) 불허용 */
-}
-
 button {
-  background-color: #ccc;
-  color: #fff;
-  padding: 10px 15px;
+  color: var(--accent-color);
+  background-color: var(--button-color);
+  padding: 8px;
+  font-size: 2.2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
+  margin: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  width: 80%;
 }
 
 button:hover {
   background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.comp__wrapper {
+  width: 818px;
+  min-width: 375px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+
+@media screen and (max-width: 818px) {
+  .comp__wrapper {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+.swal2-actions {
+  width: 50%;
+  border-radius: 16px;
 }

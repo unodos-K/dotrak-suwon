@@ -1,19 +1,12 @@
+const { DateTime } = require('luxon');
+
 const express = require('express');
+const nodemailer = require('nodemailer');
+const app = express();
+const port = 3001;
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const mysql = require('mysql');
 require('dotenv').config();
-
-const app = express();
-const port = 3002;
-const corsOptions = {
-    origin: 'https://dotrak.hair',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-};
-
-app.use(cors(corsOptions));
-  
 app.use(bodyParser.json());
 
 // // MySQL 연결 설정
@@ -33,23 +26,50 @@ connection.connect((err) => {
   }
 });
 
-app.get('/test', (req, res) => {
-    // console.log(res)
-    res.send('This is a test endpoint.');
-})
+// 메일을 발송할 함수
+async function sendMail(name, contact, treatmentArea) {
+  const seoulDateTime = DateTime.local().setZone('Asia/Seoul');
+    const emailAddress = process.env.EMAIL_USER;
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: emailAddress,
+            pass: process.env.APP_PASS    
+        }
+    });
+
+    let mailOptions = {
+        from: emailAddress,
+        to: emailAddress, // 수신자 이메일 주소
+        subject: '새로운 요청이 도착했습니다.',
+        text: `
+            고객명: ${name}
+            연락처: ${contact}
+            접수일자: ${seoulDateTime.setLocale('ko-KR').toFormat('yyyy-MM-dd HH:mm:ss')}
+            시술부위: ${treatmentArea}
+        `
+    };
+
+    let info = await transporter.sendMail(mailOptions);
+    console.log('메일이 발송되었습니다:', info.messageId);
+}
+
+
+
 
 app.post('/submitForm', (req, res) => {
     try {
       const formData = req.body;
-        console.log(formData)
-      const sql = 'INSERT INTO user_table (name, contact) VALUES (?, ?)';
-      const values = [formData.name, formData.contact];
+      console.log(formData)
+      const sql = 'INSERT INTO smp_applications (name, contact, treatmentArea, checked) VALUES (?, ?, ?, ?)';
+      const values = [formData.name, formData.contact, formData.treatmentArea];
       console.log(values)
       connection.query(sql, values, (error, results) => {
           if (error) {
               console.error('데이터베이스 삽입 오류:', error);
               res.status(500).json({ error: '서버 오류: 데이터베이스 삽입 중 오류 발생' });
             } else {
+                sendMail(formData.name, formData.contact, formData.treatmentArea);
                 console.log('데이터베이스에 성공적으로 삽입되었습니다.');
                 res.status(200).json({ message: '서버에서 응답: 이벤트 응모가 완료되었습니다.' });
             }
@@ -62,5 +82,5 @@ app.post('/submitForm', (req, res) => {
   
 // 서버 시작
 app.listen(port, () => {
-  console.log(`서버가 ${port}포트에서 실행 중입니다.`);
+    console.log(`서버가 ${port}포트에서 실행 중입니다.`);
 });

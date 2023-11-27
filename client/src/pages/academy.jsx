@@ -1,29 +1,35 @@
-import DayCountContainer from '../components/common/dayCountContainer';
-import FormContainer from '../components/common/formContainer';
-import Blank from '../components/common/blank';
+import DayCountContainer from '../components/dayCountContainer';
+import FormContainer from '../components/formContainer';
+import Blank from '../components/blank';
 import EalryBird from '../components/academy/ealryBird';
 import { useState } from 'react';
+import styled from 'styled-components';
+import ShadowDotting from '../components/academy/shadowDotting';
+import Nth from '../components/academy/nth';
+import AcademyMain from '../components/academy/academyMain';
 
-// 매월 첫 주 개강
-// 평일반: 매주 수요일 / 주말반: 매주 토요일
-// 12월 (2기), 1월 (3기)
-// 
-
-// 3주 전까지 10% 할인
-// 2주 전까지 5% 할인
-
-// 피드
-// 얼리버드 할인 요소만 해서 빠르게 모집하기
+export const AcademyContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #161616;
+`
 
 
 function AcademyPage () {
-    const isVisibleForm = 100;
     return ( 
         <>
             <DayCountContainer/>
-            <EalryBird/>
-            <FormContainer isVisibleForm={isVisibleForm}/>
-        </> 
+            <AcademyContainer>
+                <AcademyMain/>
+                <ShadowDotting/>
+                {/* <EalryBird/> */}
+                <Nth />
+            </AcademyContainer> 
+            <FormContainer/>
+        </>
     );
 }
 

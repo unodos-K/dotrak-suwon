@@ -22,7 +22,7 @@ function generateRandomFourDigitNumber() {
 // console.log(dateArray)
 
 function generateRandomUserData(day) {
-    const randomNumber = getRandomNumberInRange(9, 13);
+    const randomNumber = getRandomNumberInRange(3, 6);
     const hours = generateRandomHourArray(randomNumber).sort((a, b) => b - a);
     const minutes = generateRandomMinutesArray(randomNumber);
     const seconds = generateRandomMinutesArray(randomNumber);
@@ -36,7 +36,7 @@ function generateRandomUserData(day) {
 
 function generateUserDatas() {
     const userDatas = [];
-    const dateArray = Array.from({ length: 18 }, (_, index) => 30 - index);
+    const dateArray = Array.from({ length: 9 }, (_, index) => 30 - index);
     // const dateArray = Array.from({ length: 18 }, (_, index) => index + 12);
 
     // dateArray.forEach(day => {

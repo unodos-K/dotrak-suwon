@@ -1,14 +1,17 @@
 import Swal from 'sweetalert2';
 
 export const showAlert = (title, text, icon) => {
-  Swal.fire({
-    title: title,
-    text: text,
-    icon: icon,
-    confirmButtonText: '확인',
-    width: '320px',
-  });
-}
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      confirmButtonText: '확인',
+      width: '320px',
+      customClass: {
+        confirmButton: 'modal_confirm__btn',
+      },
+    });
+  }
 
 export const handleAgreeDetails = () => {
     // 모달을 띄우는 SweetAlert2 코드
